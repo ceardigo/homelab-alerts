@@ -2,9 +2,9 @@
 
 SECRETS="/etc/homelab-alerts/secrets.env"
 
-# Carregar segredos
+# Carregar segredos (POSIX-safe)
 [ -f "$SECRETS" ] || exit 0
-source "$SECRETS"
+. "$SECRETS"
 
 HOST="$(hostname)"
 LEVEL="${1:-info}"
@@ -15,10 +15,12 @@ EMOJI="ℹ️"
 [ "$LEVEL" = "warn" ] && EMOJI="⚠️"
 [ "$LEVEL" = "crit" ] && EMOJI="🚨"
 
-TEXT="*${EMOJI} [$HOST]*\n*${TITLE}*\n\n${BODY}"
+# Montar mensagem com quebras reais
+TEXT=$(printf "*%s [%s]*\n*%s*\n\n%s" \
+  "$EMOJI" "$HOST" "$TITLE" "$BODY")
 
-# Escape Markdown
-TEXT=$(echo "$TEXT" | sed 's/_/\\_/g; s/*/\\*/g; s/\[/\\[/g')
+# Escapar SOMENTE underscore (Markdown v1)
+TEXT=$(echo "$TEXT" | sed 's/_/\\_/g')
 
 curl -s -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" \
   -d chat_id="${CHAT_ID}" \
