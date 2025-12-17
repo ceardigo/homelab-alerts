@@ -21,8 +21,11 @@ if [ -f /var/run/reboot-required.pkgs ]; then
   PKGS=$(cat /var/run/reboot-required.pkgs)
 fi
 
-MSG="Reboot necessário após atualizações."
-[ -n "$PKGS" ] && MSG="$MSG\n\nPacotes:\n$PKGS"
+if [ -n "$PKGS" ]; then
+  MSG=$(printf "Reboot necessário após atualizações.\n\nPacotes:\n%s" "$PKGS")
+else
+  MSG="Reboot necessário após atualizações."
+fi
 
 "$ALERT" warn \
   "Reboot necessário" \
