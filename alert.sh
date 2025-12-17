@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SECRETS="/etc/homelab-alerts/secrets.env"
+SECRETS="/etc/homelab-alerts/telegram.env"
 
 # Carregar segredos (POSIX-safe)
 [ -f "$SECRETS" ] || exit 0
