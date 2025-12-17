@@ -18,6 +18,8 @@ install -m 755 check-reboot-required.sh /usr/local/bin/check-reboot-required.sh
 install -m 644 cron/check-reboot-required /etc/cron.d/check-reboot-required
 install -m 755 check-unattended-failures.sh /usr/local/bin/check-unattended-failures.sh
 install -m 644 cron/check-unattended-failures /etc/cron.d/check-unattended-failures
+install -m 755 check-trivy-cves.sh /usr/local/bin/check-trivy-cves.sh
+install -m 644 cron/check-trivy-cves /etc/cron.d/check-trivy-cves
 
 echo "✔ Scripts e cron instalados"
 echo "ℹ Secrets esperados em $CONF/telegram.env"
