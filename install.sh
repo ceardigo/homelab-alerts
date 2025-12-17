@@ -16,6 +16,8 @@ install -m 755 check-unattended-upgrades.sh /usr/local/bin/check-unattended-upgr
 install -m 644 cron/check-unattended-upgrades /etc/cron.d/check-unattended-upgrades
 install -m 755 check-reboot-required.sh /usr/local/bin/check-reboot-required.sh
 install -m 644 cron/check-reboot-required /etc/cron.d/check-reboot-required
+install -m 755 check-unattended-failures.sh /usr/local/bin/check-unattended-failures.sh
+install -m 644 cron/check-unattended-failures /etc/cron.d/check-unattended-failures
 
 echo "✔ Scripts e cron instalados"
 echo "ℹ Secrets esperados em $CONF/telegram.env"
