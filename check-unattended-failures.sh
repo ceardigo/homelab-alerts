@@ -22,9 +22,11 @@ ERRORS=$(awk "/$LAST_RUN/,0" "$LOG" | grep -E "ERROR|Failed|dpkg exited|packages
 
 [ -z "$ERRORS" ] && exit 0
 
+MSG=$(printf "Erros detectados:\n\n%s" "$ERRORS")
+
 "$ALERT" crit \
   "Falha no unattended-upgrades" \
-  "Erros detectados:\n\n$ERRORS"
+  "$MSG"
 
 # Marcar estado
 echo "$LAST_RUN" > "$STATE"
